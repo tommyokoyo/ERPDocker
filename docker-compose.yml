@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  mariadb:
+    image: mariadb:10.6
+    container_name: erpnext-mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "rootpassword"
+      MYSQL_DATABASE: "erpnext"
+      MYSQL_USER: "erpnext"
+      MYSQL_PASSWORD: "erpnextpassword"
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:6
+    container_name: erpnext-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  erpnext:
+    build: .
+    container_name: erpnext-app
+    restart: always
+    depends_on:
+      - mariadb
+      - redis
+    ports:
+      - "8000:8000"
+      - "9000:9000"
