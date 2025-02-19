@@ -1,37 +1,16 @@
-version: "3"
-
 services:
-  mariadb:
-    image: mariadb:10.6
-    container_name: erpnext-mariadb
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: "rootpassword"
-      MYSQL_DATABASE: "erpnext"
-      MYSQL_USER: "erpnext_user"
-      MYSQL_PASSWORD: "erpnext_password"
-    ports:
-      - "3306:3306"
-    volumes:
-      - mariadb_data:/var/lib/mysql
-
-  redis:
-    image: redis:6
-    container_name: erpnext-redis
-    restart: always
-    ports:
-      - "6379:6379"
-
   erpnext:
+    image: eclectics-erpnext-demo
     build: .
-    container_name: erpnext-app
+    container_name: erpnext-app-demo
     restart: always
-    depends_on:
-      - mariadb
-      - redis
     ports:
-      - "8000:8000"
-      - "9000:9000"
-volumes:
-  mariadb_data:   # ✅ Ensure this is defined
-  erpnext_data:
+      - "8080:8000"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_ROOT_USER: ${DB_ROOT_USER}
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      REDIS_CACHE: ${REDIS_CACHE}
+      REDIS_QUEUE: ${REDIS_QUEUE}
+      REDIS_SOCKETIO: ${REDIS_SOCKETIO}
