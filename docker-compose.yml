@@ -8,10 +8,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "rootpassword"
       MYSQL_DATABASE: "erpnext"
-      MYSQL_USER: "erpnext"
-      MYSQL_PASSWORD: "erpnextpassword"
+      MYSQL_USER: "erpnext_user"
+      MYSQL_PASSWORD: "erpnext_password"
     ports:
       - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
 
   redis:
     image: redis:6
@@ -30,3 +32,6 @@ services:
     ports:
       - "8000:8000"
       - "9000:9000"
+volumes:
+  mariadb_data:   # ✅ Ensure this is defined
+  erpnext_data:
