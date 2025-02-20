@@ -1,16 +1,14 @@
 services:
   erpnext:
-    image: eclectics-erpnext-demo
+    image: erpnext-mariadb
     build: .
-    container_name: erpnext-app-demo
+    container_name: erpnext-mariadb
     restart: always
     ports:
       - "8080:8000"
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
-      DB_ROOT_USER: ${DB_ROOT_USER}
-      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      REDIS_CACHE: ${REDIS_CACHE}
-      REDIS_QUEUE: ${REDIS_QUEUE}
-      REDIS_SOCKETIO: ${REDIS_SOCKETIO}
+      MARIADB_HOST: 192.168.202.138
+      MARIADB_PORT: 3306
+      MARIADB_ERPNEXT_ROOT: erpnext_admin
+      MARIADB_PASSWORD: Security
+      FRAPPE_ADMIN_PASSWORD: "Security"
